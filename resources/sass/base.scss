@@ -1,0 +1,588 @@
+@use "sass:math";
+
+html {
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    max-width: 100%;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+}
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+ul,
+ol {
+    padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+ul[class] {
+    list-style: none;
+}
+
+img {
+    display: block;
+}
+
+input,
+button {
+    &:hover,
+    &:focus,
+    &:active {
+        outline: none;
+    }
+}
+
+input,
+button,
+textarea,
+select {
+    padding: 0;
+    font: inherit;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s;
+    cursor: pointer;
+
+    &:active, &:focus, &:hover {
+        color: inherit;
+    }
+}
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+    font-size: math.div(100vw, (1920*0.1));
+    //overflow-y: hidden;
+    //
+    //&.overflow {
+    //  overflow-y: auto;
+    //}
+}
+
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    color: $black;
+    background: $background;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    background-repeat: repeat;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.container {
+    max-width: 160rem;
+    margin: 0 auto;
+    padding: 8rem 3rem 0 12rem;
+}
+
+ul {
+    list-style: none;
+}
+
+p {
+    margin: 0 0 2rem 0;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+button {
+    cursor: pointer;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1 0 auto;
+    padding: 4rem 0;
+}
+
+.footer {
+    flex: 0 0 auto;
+}
+
+h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.object-fit {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.btn-none {
+    background: none;
+    border: none;
+}
+
+::-moz-placeholder {
+    color: $gray;
+}
+
+:-moz-placeholder {
+    color: $gray;
+}
+
+:-ms-input-placeholder {
+    color: $gray;
+}
+
+::-webkit-input-placeholder {
+    color: $gray;
+}
+
+input {
+    height: 4rem;
+    width: 100%;
+    background: $white;
+    box-shadow: 0 1.0rem 1.3rem rgba(17, 38, 146, 0.05);
+    border-radius: .8rem;
+    border: none;
+    padding: 1.5rem 2rem;
+
+    &.input__search {
+        padding: 1.5rem 2rem 1.5rem 4rem;
+        height: 5rem;
+    }
+}
+
+.nav {
+    display: flex;
+
+    &-link {
+        &.active {
+            .nav__item {
+                color: $blue;
+                border-bottom: 3px solid $blue;
+            }
+        }
+    }
+
+    &__item {
+        height: 7rem;
+        padding: 0 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-right: 1px solid $gray-light;
+        border-bottom: 2px solid $white;
+        background: $white;
+        font-weight: 600;
+
+        &:last-child {
+            border-right-color: $white;
+        }
+
+        &.active {
+            color: $blue;
+            border-bottom: 3px solid $blue;
+        }
+    }
+}
+
+.table {
+    width: 100%;
+    background: $white;
+
+    &-head {
+        &__item {
+            padding: 2rem;
+            font-weight: 500;
+        }
+    }
+
+    &-row {
+        &__item {
+            padding: 2rem 1.5rem;
+            border-top: 2px solid $gray-light;
+            font-size: 1.4rem;
+        }
+
+        &__links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        &__link {
+            margin-right: 1rem;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        &__date {
+            border-bottom: 2px dotted $black;
+        }
+
+        &__icon {
+
+            margin-right: .5rem;
+
+            &_gray {
+                color: $gray-light;
+            }
+
+            &_green {
+                font-size: 2.5rem;
+                color: $green;
+            }
+
+            &_red {
+                font-size: 2.5rem;
+                color: $red;
+            }
+        }
+    }
+}
+
+.tab-pane {
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
+
+.cards {
+    margin: 4rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    //justify-content: space-between;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    background: $white;
+    border-radius: 2rem;
+    padding: 2rem 2rem 2rem 1.7rem;
+    color: $blue;
+    min-width: 23rem;
+    width: fit-content;
+    margin-right: 1rem;
+    -webkit-box-shadow: 0px 0px 10px 2px rgba(186, 193, 199, 0.2);
+    -moz-box-shadow: 0px 0px 10px 2px rgba(186, 193, 199, 0.2);
+    box-shadow: 0px 0px 10px 2px rgba(186, 193, 199, 0.2);
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    &__icon {
+        width: 5.6rem;
+        height: 5.6rem;
+        background: $white-light;
+        border-radius: 50%;
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+    }
+
+    &__caption {
+        font-weight: 400;
+        font-size: 1.4rem;
+        line-height: 2.4rem;
+        letter-spacing: -0.02em;
+        color: $gray;
+        margin: 0;
+    }
+
+    &__title {
+        font-weight: 600;
+        font-size: 2.4rem;
+        line-height: 3.2rem;
+        letter-spacing: -0.02em;
+    }
+}
+
+
+input[type="range"] {
+    outline: 0;
+    border: 0;
+    border-radius: 50rem;
+    width: 40rem;
+    max-width: 100%;
+    padding: 0;
+    transition: box-shadow 0.2s ease-in-out;
+    // Chrome
+    @media screen and (-webkit-min-device-pixel-ratio: 0) {
+        & {
+            overflow: hidden;
+            height: 2.8rem;
+            -webkit-appearance: none;
+            background-color: $white;
+        }
+        &::-webkit-slider-runnable-track {
+            height: 2.8rem;
+            -webkit-appearance: none;
+            color: #444;
+            transition: box-shadow 0.2s ease-in-out;
+        }
+        &::-webkit-slider-thumb {
+            width: 2.8rem;
+            -webkit-appearance: none;
+            height: 2.8rem;
+            cursor: ew-resize;
+            background: #fff;
+            box-shadow: -34rem 0 0 32rem $blue, inset 0 0 0 4rem $blue;
+            border-radius: 50%;
+            transition: box-shadow 0.2s ease-in-out;
+            position: relative;
+        }
+        &:active::-webkit-slider-thumb {
+            background: #fff;
+            box-shadow: -34rem 0 0 32rem $blue, inset 0 0 0 3px $blue;
+        }
+    }
+    // Firefox
+    &::-moz-range-progress {
+        background-color: $blue;
+    }
+
+    &::-moz-range-track {
+        background-color: $white;
+    }
+
+    // IE
+    &::-ms-fill-lower {
+        background-color: $blue;
+    }
+
+    &::-ms-fill-upper {
+        background-color: $white;
+    }
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.range {
+    &__value {
+        line-height: 2rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        font-size: 1.8rem;
+
+        &_max, &_min {
+            font-size: 1.2rem;
+        }
+    }
+}
+
+.form {
+    &__group {
+        margin-bottom: 2rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__input {
+        max-width: 40rem;
+    }
+
+    &__label {
+        display: block;
+        font-weight: 600;
+        font-size: 1.4rem;
+        line-height: 2.4rem;
+        letter-spacing: -0.02em;
+        margin-bottom: .6rem;
+    }
+
+    &__btns {
+        display: flex;
+        align-items: center;
+        margin-top: 5rem;
+    }
+
+    &__btn {
+        border: none;
+        background: $blue;
+        border-radius: 1.6rem;
+        width: 100%;
+        max-width: 32rem;
+        height: 4.6rem;
+        padding: 1.1rem 1.8rem;
+        font-weight: 700;
+        color: $white;
+        margin-right: 2rem;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &_red {
+            background: $red;
+        }
+    }
+}
+
+.check {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    font-weight: 600;
+
+    &__box {
+        border: 3px solid $white;
+        border-radius: .5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1.3rem;
+        font-size: 1.5rem;
+        padding: 3px;
+    }
+
+    &__svg {
+        opacity: 0;
+        color: $white;
+    }
+
+    &__input {
+        position: absolute;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        opacity: 0;
+
+        &:checked {
+            + .check__box {
+                background-color: $blue;
+                border-color: $blue;
+
+                .check__svg {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+.tab-content_custom {
+    background: $white;
+    padding: 4rem 1rem;
+}
+
+.form__group {
+    .vs__dropdown-menu, .vs__dropdown-toggle {
+        max-width: 40rem;
+    }
+
+    .vs__dropdown-toggle {
+        background: $white;
+        border-color: transparent;
+        height: 4rem;
+    }
+
+    .vs__selected {
+        padding: 0.8rem 1rem;
+        margin: 0;
+        height: fit-content;
+    }
+}
+.pt-4 {
+    padding-top: 4rem;
+}
+.terminals-search__input {
+    padding-left: 4.5rem;
+    height: 5.5rem;
+}
+@media only screen and (max-width: $large-desktop) {
+    html {
+        font-size: math.div(100vw, (1600*0.1));
+    }
+}
+
+@media only screen and (max-width: $small-desktop) {
+    html {
+        font-size: math.div(100vw, (1440*0.1));
+    }
+}
+
+@media only screen and (max-width: $medium-tablet) {
+    html {
+        font-size: math.div(100vw, (998*0.1));
+    }
+}
+
+@media only screen and (max-width: $small-tablet) {
+    html {
+        font-size: math.div(100vw, (800*0.1));
+    }
+}
+
+@media only screen and (max-width: $large-mobile) {
+    html {
+        font-size: math.div(100vw, (580*0.1));
+    }
+}
+
+@media only screen and (max-width: $medium-mobile) {
+    html {
+        font-size: math.div(100vw, (428*0.1));
+    }
+}

@@ -1,0 +1,17 @@
+// Bootstrap
+//@import '~bootstrap/scss/bootstrap';
+
+@import "fonts.scss";
+@import "variables.scss";
+@import "animate.scss";
+@import "base.scss";
+
+
+
+
+@import "part/header.scss";
+@import "part/footer.scss";
+
+@import "pages/main.scss";
+@import "pages/terminals.scss";
+//@import "pages/device.scss";

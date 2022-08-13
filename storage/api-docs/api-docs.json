@@ -1,0 +1,301 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Water",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/devices": {
+            "get": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Информация о всех устройств",
+                "description": "Получение информации о всех устройствах",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "owner_title": {
+                                            "type": "string",
+                                            "example": "AKVATOR"
+                                        },
+                                        "note": {
+                                            "type": "string",
+                                            "example": "869270049910291"
+                                        },
+                                        "lat": {
+                                            "type": "string",
+                                            "example": "N 46 0' 59.62985''"
+                                        },
+                                        "long": {
+                                            "type": "string",
+                                            "example": "E 53 26' 19.51070''"
+                                        },
+                                        "IMEI": {
+                                            "type": "string",
+                                            "example": "869270049910291"
+                                        },
+                                        "percent_signal": {
+                                            "type": "integer",
+                                            "example": "79"
+                                        },
+                                        "firmware": {
+                                            "type": "string",
+                                            "example": "v 4.5.33"
+                                        },
+                                        "balanceSIM": {
+                                            "type": "integer",
+                                            "example": "218"
+                                        },
+                                        "temperature": {
+                                            "type": "integer"
+                                        },
+                                        "uv_lamp": {
+                                            "type": "integer"
+                                        },
+                                        "money": {
+                                            "type": "integer",
+                                            "example": "546"
+                                        },
+                                        "litres": {
+                                            "type": "integer",
+                                            "example": "266"
+                                        },
+                                        "last_online_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "last_sale_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "service_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "on_date_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "update_date_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "device_info": {
+                                            "type": "array",
+                                            "items": {}
+                                        },
+                                        "control_board": {
+                                            "type": "array",
+                                            "items": {}
+                                        },
+                                        "finances": {
+                                            "type": "array",
+                                            "items": {}
+                                        },
+                                        "alerts": {
+                                            "type": "array",
+                                            "items": {}
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unauthorized user"
+                    }
+                }
+            }
+        },
+        "/api/device": {
+            "post": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Добавление нового устройства",
+                "description": "Добавление нового устройства",
+                "operationId": "df3c6e58e138093da3a49c80fdff426a",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            }
+        },
+        "/api/device/edit": {
+            "put": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Редактирование устройства",
+                "description": "Редактирование уже существующего устройства",
+                "operationId": "1ccc34e6f06109efebc648788003ece5",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            }
+        },
+        "/api/device/delete": {
+            "delete": {
+                "tags": [
+                    "Devices"
+                ],
+                "summary": "Удаление информации об устройстве",
+                "description": "Удаление существующей информации об устройстве",
+                "operationId": "99f9b146eccbab562c3918c473ece5b2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": "0"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            }
+        },
+        "/api/device/{deviceId}/historySales": {
+            "get": {
+                "tags": [
+                    "HistorySales"
+                ],
+                "summary": "Информация о всех продажах выбранного устройства",
+                "description": "Получение информации о всех продажах выбранного устройства",
+                "operationId": "49a20c5d3beea0d14589723fb86631d6",
+                "parameters": [
+                    {
+                        "name": "deviceId",
+                        "in": "path",
+                        "description": "ID устройства",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "device_id": {
+                                            "type": "integer",
+                                            "example": "2"
+                                        },
+                                        "price": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "app": {
+                                                        "type": "integer",
+                                                        "example": "2"
+                                                    },
+                                                    "card": {
+                                                        "type": "integer",
+                                                        "example": "2"
+                                                    },
+                                                    "cash": {
+                                                        "type": "integer",
+                                                        "example": "2"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "sale_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "sale_at_display": {
+                                            "type": "string",
+                                            "example": "28.07.22 13:29:49"
+                                        },
+                                        "litres": {
+                                            "type": "integer",
+                                            "example": "5"
+                                        },
+                                        "money": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "cash": {
+                                                        "type": "integer",
+                                                        "example": "null"
+                                                    },
+                                                    "coin": {
+                                                        "type": "integer",
+                                                        "example": "10"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "priceSale": {
+                                            "type": "integer",
+                                            "example": "10"
+                                        },
+                                        "change": {
+                                            "type": "integer",
+                                            "example": "0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            }
+        }
+    }
+}

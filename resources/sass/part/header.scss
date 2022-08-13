@@ -1,0 +1,112 @@
+.header {
+    font-size: 1.8rem;
+    line-height: 2.1rem;
+    background: $white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+
+    &__wrapper {
+        transition: transform 0.55s;
+        background: $white;
+        position: fixed;
+        z-index: 9;
+        top: 0;
+        left: 0;
+        width: 35rem;
+        min-height: 100vh;
+        overflow-y: auto;
+        transform: translateX(-25rem);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0px 10px 30px rgba(17, 38, 146, 0.08);
+    }
+
+    &__row {
+        margin: 0 auto;
+        padding: 2.8rem 5rem 2.8rem 4.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__column {
+        display: flex;
+        align-items: center;
+    }
+
+    &__avatar {
+        font-weight: 700;
+    }
+
+    &-logo {
+        z-index: 47;
+        position: relative;
+    }
+
+    &__arrow {
+        position: relative;
+        z-index: 47;
+        margin-right: 4.8rem;
+        transition: transform 0.25s;
+        font-size: 3rem;
+        color: $blue;
+    }
+
+    &-nav {
+        width: 100%;
+        padding: 10rem 4rem 4rem;
+
+        &__list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 1rem;
+        }
+
+        &__item {
+            margin: 0 0 2.5rem;
+            overflow: hidden;
+            text-align: center;
+            font-weight: 500;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+            }
+        }
+    }
+
+    &.show {
+        .header {
+            &__wrapper {
+                transform: translateX(0px);
+            }
+
+            &-nav {
+                &__item {
+                    a {
+                        animation: .5s slideUp ease forwards .5s;
+                        transform: translateY(200px);
+                        opacity: 1;
+                    }
+                }
+            }
+
+            &__arrow {
+                transform: rotateZ(180deg);
+            }
+        }
+    }
+}
+
