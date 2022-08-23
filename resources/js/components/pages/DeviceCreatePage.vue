@@ -1,22 +1,10 @@
 <template>
     <section class="device-create">
-        <div class="container">
+        <div class="container" :key="index" v-for="(item, index) in devices">
             <h2 class="device__title">
                 Добавить прибор
             </h2>
             <form @submit.prevent="addDevice" class="device-create__form form">
-                <div class="device-create__group form__group">
-                    <label class="device-create__label form__label">
-                        owner_title
-                    </label>
-                    <input v-model="device.owner_title" class="form__input" type="number">
-                </div>
-                <div class="device-create__group form__group">
-                    <label class="device-create__label form__label">
-                        address
-                    </label>
-                    <input v-model="device.address" class="form__input" type="number">
-                </div>
                 <b-tabs>
                     <b-tab active>
                         <template #title>
@@ -286,9 +274,8 @@
                             </div>
                             <div class="device-create__group form__group">
                                 <label class="device-create__label form__label">
-                                    Число импульсов <span v-if="value !== null" class="range__value">({{
-                                        value
-                                    }})</span>
+                                    Число импульсов
+                                    <span v-if="value !== null" class="range__value">({{ value }})</span>
                                 </label>
                                 <div class="range">
                                     <div class="range__row">
@@ -505,9 +492,7 @@
                     </b-tab>
                 </b-tabs>
                 <div class="form__btns">
-
                     <button class="form__btn" type="submit">Сохранить</button>
-                    <button class="form__btn form__btn_red" type="submit">Удалить</button>
                 </div>
             </form>
         </div>
@@ -531,6 +516,7 @@ Vue.use(VCalendar, {
 });
 import Calendar from 'v-calendar/lib/components/calendar.umd'
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
+import axios from "axios";
 
 Vue.component('calendar', Calendar)
 Vue.component('date-picker', DatePicker)
@@ -543,10 +529,7 @@ export default {
     },
     data: () => ({
         devices: [],
-        device: {
-            owner_title: '',
-            address: '',
-        },
+        device: {},
         value: null,
         options: [
             'foo',
@@ -557,38 +540,29 @@ export default {
 
     }),
     mounted() {
-        axios
-            .get('/api/devices')
+        axios.get('/api/devices')
             .then(result => {
                 this.devices = result.data;
+                console.log(this.devices)
             })
             .catch(error => console.log(error))
     },
     methods: {
-        getDevice() {
-            axios.get('/api/devices').then(
-                result => {
-                    this.devices = result.data;
-                }).catch(error => console.log(error)
-            )
-        },
         addDevice() {
-            if (this.edit === false) {
-                axios
-                    .post('/api/devices', {
-                        owner_title: this.owner_title,
-                        address: this.address
-                    })
-                    .then(result => {
-                        this.owner_title = '',
-                        this.address = ''
-                        alert("OK")
-                        console.log(result)
-                    })
-                    .catch(error => console.log(error))
-            } else {
-
-            }
+            axios.post('/api/device/',
+                {
+                    device: this.device
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-access-token": "token-value",
+                    },
+                })
+                .then((response) => {
+                    console.log(response)
+                })
+                .catch(error => console.log(error));
         }
         // addDevice(device) {
         //     e.preventDefault();

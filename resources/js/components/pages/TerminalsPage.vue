@@ -222,7 +222,10 @@ export default {
     name: "TerminalsPage",
     data: () => ({
         devices: [],
-        userLastCount: null
+        device: {
+            owner_title: ''
+        },
+
     }),
     mounted() {
         axios.get('/api/devices').then(
@@ -233,17 +236,12 @@ export default {
     },
     methods: {
         deleteDevice(id) {
-            // this.axios
-            // .delete(`/api/device/delete/${id}`)
-            // .then(response => {
-            //     let i = this.devices.map(data => data.id).indexOf(id);
-            //     this.devices.splice(i, 1)
-            //     alert("OK")
-            // });
-            // let uri = `/api/device/delete/${id}`;
-            // console.log(uri);
-            this.axios
-                .post(`/api/device/delete/{$id}`, {_method:'delete'})
+            axios.delete('/api/device/delete/' + id,
+                {
+                    headers: {
+                        "x-access-token": "token-value",
+                    },
+                })
                 .then(response => {
                     this.devices.splice(this.devices.indexOf(id), 1);
                 });

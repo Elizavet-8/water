@@ -1,10 +1,10 @@
 <template>
     <section class="device-edit">
-        <div class="container">
+        <div class="container" :key="index" v-for="(item, index) in device">
             <h2 class="device__title">
-                353453, РФ, Краснодарский край, г.Анапа, ул. Владимирская д.120 пом.235
+                {{ item.owner_title }}
             </h2>
-            <form class="device-edit__form form">
+            <form class="device-edit__form form" @submit.prevent="editDevice(item.id)">
                 <b-tabs>
                     <b-tab active>
                         <template #title>
@@ -17,19 +17,19 @@
                                 <label class="device-edit__label form__label">
                                     IMEI*
                                 </label>
-                                <input class="form__input" type="number">
+                                <input v-model="item.IMEI" class="form__input" type="number">
                             </div>
                             <div class="device-edit__group form__group">
                                 <label class="device-edit__label form__label">
                                     Тип аппарата*
                                 </label>
-                                <input class="form__input" type="text">
+                                <input v-model="item.device_info.type" class="form__input" type="text">
                             </div>
                             <div class="device-edit__group form__group">
                                 <label class="device-edit__label form__label">
                                     Номер SIM*
                                 </label>
-                                <input class="form__input tel" type="tel">
+                                <input v-model="item.device_info.SIM_phone" class="form__input tel" type="tel">
                             </div>
                             <div class="device-edit__group form__group">
                                 <label class="device-edit__label form__label">
@@ -47,13 +47,13 @@
                                 <label class="device-edit__label form__label">
                                     Телефон поддержки*
                                 </label>
-                                <input class="form__input tel" type="tel">
+                                <input v-model="item.device_info.support_phone" class="form__input tel" type="tel">
                             </div>
                             <div class="device-edit__group form__group">
                                 <label class="device-edit__label form__label">
                                     Адресс установки аппарата*
                                 </label>
-                                <input class="form__input" type="text">
+                                <input v-model="item.device_info.exact_address" class="form__input" type="text">
                             </div>
                             <div class="device-edit__group form__group">
                                 <label class="device-edit__label form__label">
@@ -63,7 +63,8 @@
                             </div>
                             <div class="device-edit__group form__group">
                                 <label class="device-edit-check check">
-                                    <input class="device-edit-check__input check__input" type="checkbox">
+                                    <input v-model="item.device_info.pay_app"
+                                           class="device-edit-check__input check__input" type="checkbox">
                                     <span class="device-edit-check__box check__box">
                                         <i class="device-edit-check__svg check__svg fa-solid fa-check"></i>
                                     </span>
@@ -72,9 +73,9 @@
                             </div>
                             <div class="device-edit__group form__group">
                                 <label class="device-edit__label form__label">
-                                    Примечание
+                                    Примечани
                                 </label>
-                                <input class="form__input" type="text">
+                                <input v-model="item.note" class="form__input" type="text">
                             </div>
                             <div class="device-edit__group form__group">
                                 <label class="device-edit__label form__label">
@@ -96,7 +97,8 @@
                             </div>
                             <div class="device-edit__group form__group">
                                 <label class="device-edit-check check">
-                                    <input class="device-edit-check__input check__input" type="checkbox">
+                                    <input v-model="item.device_info.reset_litres"
+                                           class="device-edit-check__input check__input" type="checkbox">
                                     <span class="device-edit-check__box check__box">
                                         <i class="device-edit-check__svg check__svg fa-solid fa-check"></i>
                                     </span>
@@ -105,7 +107,8 @@
                             </div>
                             <div class="device-edit__group form__group">
                                 <label class="device-edit-check check">
-                                    <input class="device-edit-check__input check__input" type="checkbox">
+                                    <input v-model="item.device_info.restart_payment"
+                                           class="device-edit-check__input check__input" type="checkbox">
                                     <span class="device-edit-check__box check__box">
                                         <i class="device-edit-check__svg check__svg fa-solid fa-check"></i>
                                     </span>
@@ -114,7 +117,8 @@
                             </div>
                             <div class="device-edit__group form__group">
                                 <label class="device-edit-check check">
-                                    <input class="device-edit-check__input check__input" type="checkbox">
+                                    <input v-model="item.device_info.allow_sell_water"
+                                           class="device-edit-check__input check__input" type="checkbox">
                                     <span class="device-edit-check__box check__box">
                                         <i class="device-edit-check__svg check__svg fa-solid fa-check"></i>
                                     </span>
@@ -239,12 +243,23 @@
                                 <label class="device-edit__label form__label">
                                     Дата обслуживания
                                 </label>
-                                <v-date-picker v-model="date" is24hr>
+                                <div class="v-date-picker__row">
+                                    <label class="v-date-picker__label">
+                                        <input class="v-date-picker__input" type="radio" value="" v-model="timezone">
+                                        Local
+                                    </label>
+                                    <label class="v-date-picker__label">
+                                        <input class="v-date-picker__input" type="radio" value="utc" v-model="timezone">
+                                        UTC
+                                    </label>
+                                </div>
+                                <v-date-picker v-model="item.service_at" mode="dateTime" :timezone="timezone">
                                     <template v-slot="{ inputValue, inputEvents }">
                                         <input
                                             class="form__input px-2 py-1 border rounded focus:outline-none focus:border-blue-300"
                                             :value="inputValue"
                                             v-on="inputEvents"
+
                                         />
                                     </template>
                                 </v-date-picker>
@@ -272,7 +287,9 @@
                             </div>
                             <div class="device-edit__group form__group">
                                 <label class="device-edit__label form__label">
-                                    Число импульсов <span v-if="value !== null" class="range__value">({{value }})</span>
+                                    Число импульсов <span v-if="value !== null" class="range__value">({{
+                                        value
+                                    }})</span>
                                 </label>
                                 <div class="range">
                                     <div class="range__row">
@@ -489,8 +506,7 @@
                     </b-tab>
                 </b-tabs>
                 <div class="form__btns">
-                    <button class="form__btn" type="submit">Сохранить</button>
-                    <button class="form__btn form__btn_red" type="submit">Удалить</button>
+                    <button class="form__btn" type="submit">Редактировать</button>
                 </div>
             </form>
         </div>
@@ -501,17 +517,21 @@
 import Vue from 'vue'
 //селект
 import vSelect from 'vue-select'
+
 Vue.component('v-select', vSelect)
 Vue.component('v-select', VueSelect.VueSelect)
 import 'vue-select/dist/vue-select.css';
 import {VueSelect} from "vue-select/src";
 //календарь
 import VCalendar from 'v-calendar';
+
 Vue.use(VCalendar, {
     componentPrefix: 'vc',
 });
 import Calendar from 'v-calendar/lib/components/calendar.umd'
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
+import axios from "axios";
+
 Vue.component('calendar', Calendar)
 Vue.component('date-picker', DatePicker)
 
@@ -522,14 +542,71 @@ export default {
         DatePicker
     },
     data: () => ({
+        device: null,
+        device_id: window.location.href.split("/").slice(-1)[0],
         value: null,
+        timezone: '',
         options: [
             'foo',
             'bar',
             'baz'
         ],
         date: new Date(),
-    })
+    }),
+    mounted() {
+        axios.get(`/api/device/${this.device_id}`)
+            .then(response => {
+                this.device = response.data
+            })
+            .catch(error => console.log(error))
+    },
+    methods: {
+        editDevice(id) {
+            axios.put('/api/device/edit/' + id,
+                {
+                    device: this.device
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-access-token": "token-value",
+                    },
+                })
+                .then((response) => {
+                    console.log(response)
+                })
+                .catch(error => console.log(error));
+
+            // this.axios.put('/api/device/edit/' + id, this.device,
+            //     {
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         },
+            //     })
+            //     .then((response) => {
+            //         console.log(response)
+            //     });
+
+            // this.axios
+            //     .put('/api/device/edit/' + id,
+            //         {
+            //             body: JSON.stringify(editDevice)
+            //         },
+            //         {
+            //             headers: {
+            //                 "Content-Type": "application/json",
+            //                 "x-access-token": "token-value",
+            //             },
+            //
+            //         })
+            //     .then(response => {
+            //         console.log(response);
+            //     })
+            //     .catch(error => {
+            //         console.log(error);
+            //     });
+        }
+    }
 }
 </script>
 

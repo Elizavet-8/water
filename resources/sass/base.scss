@@ -544,13 +544,40 @@ input[type=number]::-webkit-inner-spin-button {
         height: fit-content;
     }
 }
+
 .pt-4 {
     padding-top: 4rem;
 }
+
 .terminals-search__input {
     padding-left: 4.5rem;
     height: 5.5rem;
 }
+
+.v-date-picker {
+    &__row {
+        display: flex;
+        margin-bottom: 1rem;
+    }
+
+    &__label {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-right: 1rem;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    &__input {
+        width: 2rem;
+        height: 2rem;
+        margin: 0 auto;
+    }
+}
+
 @media only screen and (max-width: $large-desktop) {
     html {
         font-size: math.div(100vw, (1600*0.1));

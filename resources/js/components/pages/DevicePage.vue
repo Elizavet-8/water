@@ -1,6 +1,6 @@
 <template>
     <section id="device" class="device">
-        <div class="container" v-for="(item, index) in device">
+        <div class="container" :key="index" v-for="(item, index) in device">
             <h2 class="device__title">
                 {{item.owner_title}}
             </h2>

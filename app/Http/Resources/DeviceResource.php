@@ -35,6 +35,7 @@ class DeviceResource extends JsonResource
             'last_online_at' => $this->last_online_at,
             'last_sale_at' => $this->last_sale_at,
             'service_at' => $this->service_at,
+            'service_at_display'  => Carbon::parse($this->service_at)->format('d.m.y'),
             'on_date_at' => $this->on_date_at,
             'update_date_at' => $this->update_date_at,
             'device_info' => $this->info,

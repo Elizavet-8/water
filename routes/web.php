@@ -47,7 +47,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::group(['prefix' => 'device'], function () {
         Route::post('/', [\App\Http\Controllers\DeviceController::class, 'store']);
         Route::get('/{id}', [\App\Http\Controllers\DeviceController::class, 'oneDevice']);
-        Route::put('/edit', [\App\Http\Controllers\DeviceController::class, 'update']);
+        Route::put('/edit/{id}', [\App\Http\Controllers\DeviceController::class, 'update']);
         Route::delete('/delete/{id}', [\App\Http\Controllers\DeviceController::class, 'delete']);
         Route::get('/{deviceId}/historySales', [\App\Http\Controllers\DeviceHistorySalesController::class, 'getHistorySalesByDevice']);
     });

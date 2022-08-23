@@ -134,9 +134,6 @@ class DeviceController extends Controller
     public function oneDevice($id){
         $device = Device::find($id);
         return new DeviceResource($device);
-//        $history = DeviceHistorySales::all();
-//        $history = DeviceHistorySales::with('historySales')->get();
-//        return [new DeviceResource($device), new HistorySalesResource($history)];
     }
     /**
      * @OA\PUT(
@@ -149,7 +146,7 @@ class DeviceController extends Controller
      * ),
      * )
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $device = Device::find($request->id);
         $device::update([
@@ -229,17 +226,19 @@ class DeviceController extends Controller
      * ),
      * )
      */
+
     public function delete($id)
     {
-        Device::find($id)->controlBoard->detach();
-        Device::find($id)->info->detach();
-        Device::find($id)->finance->detach();
-        Device::find($id)->encashment->detach();
-        Device::find($id)->historySales->detach();
-        Device::find($id)->notification->detach();
-        Device::find($id)->alert->detach();
+        $device = Device::find($id);
+        $device->controlBoard->delete();
+        $device->info->delete();
+        $device->finance->delete();
+        $device->encashment->delete();
+        $device->historySales->delete();
+        $device->notification->delete();
+        $device->alert->delete();
         Device::destroy($id);
-  //      Device::find($id)->delete();
+        //      Device::find($id)->delete();
         return response(null, 200);
     }
 }
